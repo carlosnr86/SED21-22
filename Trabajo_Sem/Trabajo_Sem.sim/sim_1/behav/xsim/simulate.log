@@ -1,0 +1,4 @@
+Time resolution is 1 ps
+Failure: [success]
+Time: 290 ns  Iteration: 0  Process: /tb_SEMAFORO/tester  File: Z:/Universidad/Vivado/Trabajo_Sem/Trabajo_Sem.srcs/sim_1/new/tb_SEMAFORO.vhd
+$finish called at time : 290 ns : File "Z:/Universidad/Vivado/Trabajo_Sem/Trabajo_Sem.srcs/sim_1/new/tb_SEMAFORO.vhd" Line 75
