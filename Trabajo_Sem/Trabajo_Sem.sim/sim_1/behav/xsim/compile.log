@@ -1,0 +1,4 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "Z:/Universidad/Vivado/Trabajo_Sem/Trabajo_Sem.srcs/sources_1/new/SEMAFORO.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'SEMAFORO'
+INFO: [VRFC 10-163] Analyzing VHDL file "Z:/Universidad/Vivado/Trabajo_Sem/Trabajo_Sem.srcs/sim_1/new/tb_SEMAFORO.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'tb_SEMAFORO'
