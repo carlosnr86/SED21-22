@@ -1,7 +1,0 @@
-# compile vhdl design source files
-vhdl xil_defaultlib  \
-"../../../../Trabajo_Sem.srcs/sources_1/new/SEMAFORO.vhd" \
-"../../../../Trabajo_Sem.srcs/sim_1/new/tb_SEMAFORO.vhd" \
-
-# Do not sort compile order
-nosort
