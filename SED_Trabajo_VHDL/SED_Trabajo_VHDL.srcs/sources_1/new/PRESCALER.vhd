@@ -8,16 +8,19 @@ entity PRESCALER is
 end PRESCALER;
 
 architecture Behavioral of PRESCALER is
-    signal contador : integer range 0 to 499999999 := 0;
-    signal temporal : std_logic;
+    signal contador : integer range 0 to 49999999 := 0;
+    signal temporal : std_logic := '0';
 begin
     process (clk100MHz)
     begin 
-        if (contador = 499999999) then
-            temporal <= NOT(temporal);
-            contador <= 0;
-        else
-            contador <= contador+1;
+        if rising_edge(clk100MHz) then
+            if (contador = 49999999) then
+                temporal <= NOT(temporal);
+                contador <= 0;
+            else
+                contador <= contador+1;
+            end if;
         end if;
     end process;
+    clk1Hz<=temporal ;
 end Behavioral;

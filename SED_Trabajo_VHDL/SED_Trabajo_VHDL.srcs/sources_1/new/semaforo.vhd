@@ -14,14 +14,14 @@ architecture Behavioral of SEMAFORO is
     --S0-> Semaforo carretera verde y semaforo rural rojo
     --S1-> Semaforo carretera rojo y semafoto rural verde
     --espera0 y espera1-> Los dos semaforos en rojo
-    CONSTANT verde: STD_LOGIC_VECTOR(0 TO 1):="01"; -- asignacion de constantes que representa el colr verde
-    CONSTANT rojo: STD_LOGIC_VECTOR(0 to 1):="10"; -- asignacion de constantes que representa el colr rojo
-    CONSTANT tespera: integer :=2;--ciclos de reloj, tiempo de espera
+    CONSTANT verde: STD_LOGIC_VECTOR(0 TO 1):="01"; -- asignacion de constantes que representa el color verde
+    CONSTANT rojo: STD_LOGIC_VECTOR(0 to 1):="10"; -- asignacion de constantes que representa el color rojo
+    CONSTANT trojo: integer :=2;--ciclos de reloj, tiempo de espera
     CONSTANT tverdemin: integer :=10;--ciclos de reloj, tiempo minimo verde
     CONSTANT tverdemax: integer :=20;--ciclos de reloj, tiempo maximo semcamin verde
     SIGNAL presente: estado:=S0;--estado actual
     SIGNAL res_cont: boolean := false; --resetea el contador
-    SIGNAL cont_espera: integer RANGE 0 to 63;-- contador
+    SIGNAL cont_rojo: integer RANGE 0 to 63;-- contador
     SIGNAL cont_verde: integer RANGE 0 to 63;
 begin
 
@@ -37,7 +37,7 @@ BEGIN
                         presente<=espera0; --el estado actual cambia a espera0
                     END IF;	
                 WHEN espera0 => -- estado ambos semaforos en rojo
-                    IF cont_espera=tespera THEN --si el contador termina
+                    IF cont_rojo=trojo THEN --si el contador termina
                         presente<=S1;--el estado actual cambia a S1
                     END IF;		
                 WHEN S1 => -- semaforo del camino en color verde
@@ -45,7 +45,7 @@ BEGIN
                         presente<=espera1;--el estado actual cambia a espera1
                     END IF;
                 WHEN espera1 => -- estado ambos semaforos en rojo
-                    IF cont_espera=tespera THEN --si el contador termina
+                    IF cont_rojo=trojo THEN --si el contador termina
                         presente<=S0;--el estado actual cambia a S0
                     END IF;
             END CASE;
@@ -59,19 +59,19 @@ BEGIN
             WHEN S0 =>
                 semcarr <= verde;-- el semaforo de la carretera se encuentra en color verde
                 semcamin <= rojo;-- el semaforo del camino se mantiene en rojo
-	            res_cont <= true;--Se reinicia la cont_espera e inicia cont_verde
+	            res_cont <= true;--Se reinicia la cont_rojo e inicia cont_verde
 	       WHEN espera0 =>
                 semcarr <= rojo;--el semaforo de la carretera cambia a rojo 
                 semcamin <= rojo;--el semaforo del camino se mantiene en rojo
-                res_cont <= false;-- Se reinicia la cont_verde e inicia cont_espera
+                res_cont <= false;-- Se reinicia la cont_verde e inicia cont_rojo
             WHEN S1 =>
                 semcarr <= rojo;--el semaforo del camino se mantiene en rojo 
                 semcamin <= verde;--el semaforo del camino cambia a verde 
-                res_cont <= true;--Se reinicia la cont_espera e inicia cont_verde                 
+                res_cont <= true;--Se reinicia la cont_rojo e inicia cont_verde                 
             WHEN espera1 =>-- cuando el estado actual se encuantra en el semaforo del camino en verde
                 semcarr <= rojo;--el semaforo de la carretera se mantiene en rojo 
                 semcamin <= rojo;--el semaforo del camino cambia a rojo  
-                res_cont<= false;--Se reinicia la cont_verde e inicia cont_espera
+                res_cont<= false;--Se reinicia la cont_verde e inicia cont_rojo
         end case;
 END PROCESS salida;
 
@@ -80,11 +80,11 @@ contador: PROCESS(clk1Hz)
 BEGIN
 	IF rising_edge(clk1Hz) THEN -- cuando sube los ciclos de reloj
 		IF res_cont THEN 
-		  cont_espera<=0;-- y el res_cont_espera esta en true o verdadero se establece la cont_espera en 0
+		  cont_rojo<=0;-- y el res_cont_rojo esta en true o verdadero se establece la cont_rojo en 0
 		  cont_verde <= cont_verde +1;
 		ELSE 
 		  cont_verde<=0;
-		  cont_espera<=cont_espera+1;-- en cambio si res_cont_espera es false cont_espera empieza a incrementarce
+		  cont_rojo<=cont_rojo+1;-- en cambio si res_cont_rojo es false cont_rojo empieza a incrementarce
 		END IF;
 	END IF;
 END PROCESS contador;
